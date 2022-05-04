@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from "@angular/core";
 import { NgForm } from "@angular/forms";
+import { format } from "path";
 import { Cliente } from "../cliente.model";
 //import { stringify } from "querystring";
 
@@ -31,10 +32,19 @@ export class ClienteInserirComponent{
 //   }
 // }
 
+// //v2
+// onAdicionarCliente(cliente: Cliente){
+//     this.clienteAdicionado.emit(cliente)
+//   }
+// }
+
 //v2
-onAdicionarCliente(cliente: Cliente){
-    this.clienteAdicionado.emit(cliente)
-  }
+onAdicionarCliente(form: NgForm){
+  if(form.invalid){
+      return;
+    }
+    this.clienteAdicionado.emit(form.value)
+}
 }
 
 
