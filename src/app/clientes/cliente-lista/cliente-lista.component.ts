@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-cliente-lista',
@@ -7,19 +7,8 @@ import { Component} from '@angular/core';
 })
 export class ClienteListaComponent {
 
+  @Input()
   clientes = [
-    {
-      nome: "José",
-      fone: '912685610',
-      email: 'jose@email.com'
-    },
-    {
-      nome: "Maria",
-      fone: '912345678',
-      email: 'maria@email.com'
-    },
-
-
-
+    
   ]
 }

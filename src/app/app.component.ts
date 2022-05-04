@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'angular-cadastro-clientes';
+
+  clientes = []
+  onClienteAdicionado (cliente): void{
+    this.clientes = [...this.clientes, cliente]
+    console.log(this.clientes);
+    //console.log(cliente);
+  }
 }
