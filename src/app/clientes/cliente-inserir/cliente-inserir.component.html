@@ -1,10 +1,13 @@
 
 <!--<h2>inserção de clientes</h2>-->
-
 <mat-card>
+  <!-- {nome : "Ana", fone: "12345678", email: ana@mail.com} -->
+  <!-- clienteForm = {nome : "Ana", fone: "12345678", email: ana@mail.com} -->
+  <form (submit)="onAdicionarCliente(clienteForm.value)" #clienteForm="ngForm">
+
 <mat-form-field appearance="fill">
   <mat-label>Digite o nome</mat-label>
-  <input matInput type="text" [(ngModel)]="nome">
+  <input matInput type="text" ngModel name="nome">
   <button
     *ngIf="nome"
     matSuffix
@@ -16,7 +19,7 @@
 
 <mat-form-field appearance="fill">
   <mat-label>Digite o fone</mat-label>
-  <input matInput type="text" [(ngModel)]="fone">
+  <input matInput type="text" ngModel name="fone">
   <button
   *ngIf="fone"
     matSuffix
@@ -28,7 +31,7 @@
 
 <mat-form-field appearance="fill">
   <mat-label>Digite o e-mail</mat-label>
-  <input matInput type="text" [(ngModel)]="email">
+  <input matInput type="text" ngModel name="email">
   <button
     *ngIf="email"
     matSuffix
@@ -59,6 +62,11 @@
 <hr>
 -->
 
-<button color="primary" mat-raised-button (click)="onAdicionarCliente()">Inserir cliente</button>
+  <button
+    color="primary"
+    mat-raised-button>
+    Inserir cliente
+  </button>
+</form>
 
 </mat-card>
