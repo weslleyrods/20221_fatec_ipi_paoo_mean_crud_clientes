@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+//import { Component, EventEmitter, Output } from "@angular/core";
+import { Component} from "@angular/core";
 import { NgForm } from "@angular/forms";
-import { format } from "path";
 import { Cliente } from "../cliente.model";
-//import { stringify } from "querystring";
+import { ClienteService } from  '../cliente.service';
 
 @Component({
   selector: 'app-cliente-inserir',
@@ -10,56 +10,72 @@ import { Cliente } from "../cliente.model";
   styleUrls: ['./cliente-inserir.component.css']
 
 })
+
+//TRECHO 3 da aula - projeto com injeção de dependencia
 export class ClienteInserirComponent{
 
-  @Output()
-  clienteAdicionado = new EventEmitter<Cliente>();
+  constructor(private clienteService: ClienteService){
 
-  nome: string;
-  fone: string;
-  email: string;
+  }
 
-  //v1
-//   onAdicionarCliente(form: NgForm){
-//       //console.log(form);
-//       const cliente: Cliente = {
-//         nome: form.value.nome
-//         fone: form.value.fone
-//         email: form.value.email
-//       }
-//       this.clienteAdicionado.emit(cliente)
-
-//   }
-// }
-
-// //v2
-// onAdicionarCliente(cliente: Cliente){
-//     this.clienteAdicionado.emit(cliente)
-//   }
-// }
-
-//v2
-onAdicionarCliente(form: NgForm){
-  if(form.invalid){
-      return;
+  onAdicionarCliente(form: NgForm){
+      if(form.invalid){
+        return;
+      }
+      console.log("Form está válido");
+      this.clienteService.adicionarCliente(
+        form.value.nome,
+        form.value.fone,
+        form.value.email,
+      )
+      console.log("Foi sim inserido");
     }
-    this.clienteAdicionado.emit(form.value)
-}
 }
 
+// TRECHO 2 da aula - Projeto usando conceito de template driven form, ou seja, sem o two way data binding
+// export class ClienteInserirComponent{
+//   @Output()
+//   clienteAdicionado = new EventEmitter<Cliente>();
 
-// onAdicionarCliente(){
-
-//   this.clienteAdicionado.emit(cliente)
-
-//   //1. construir um objeto cliente que contém nome, fone e e-mail
-//     const cliente: Cliente = {
-//       nome: this.nome,
-//       fone: this.fone,
-//       email: this.email,
+//   //Versão 1
+//   onAdicionarCliente(form: NgForm){
+//       if(form.invalid){
+//         return;
+//       }
+//       //console.log(form.value);
+//         const cliente: Cliente = {
+//           nome: form.value.nome,
+//           fone: form.value.fone,
+//           email: form.value.email,
+//         }
+//       this.clienteAdicionado.emit(cliente);
 //     }
-//   //2. passar esse objeto como argumento para o métodod emit
-//   this.clienteAdicionado.emit(cliente);
+
+//   //versão 2 do método onAdicionarCliente - passando o valor do objeto diretamente para o HTML
+//   // onAdicionarCliente(cliente: Cliente){
+//   //   this.clienteAdicionado.emit(cliente);
+//   // }
 // }
 
+
+//1º PARTE DA AULA  - com Two Way data binding
+// export class ClienteInserirComponent{
+//   @Output()
+//   //<> quando o objeto emitter for chamado, garantidamente tem que ser um objeto do tipo Cliente
+//   clienteAdicionado = new EventEmitter<Cliente>();
+
+// nome: string;
+// fone: string;
+// email: string;
+
+//   onAdicionarCliente(){
+//       //1. construir um objeto cliente que contém nome, fone e e-mail
+//         const cliente: Cliente = {
+//           nome: this.nome,
+//           fone: this.fone,
+//           email: this.email,
+//         }
+//       //2. passar esse objeto como argumento para o métodod emit
+//       this.clienteAdicionado.emit(cliente);
+//     }
 // }

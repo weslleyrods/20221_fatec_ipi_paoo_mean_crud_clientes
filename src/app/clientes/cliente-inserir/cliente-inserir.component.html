@@ -1,86 +1,85 @@
 
-<!--<h2>inserção de clientes</h2>-->
-<mat-card>
+
+
+  <!-- "Objeto Json" construido implicitamente no código sem o Two Way data binding -->
   <!-- {nome : "Ana", fone: "12345678", email: ana@mail.com} -->
-  <!-- clienteForm = {nome : "Ana", fone: "12345678", email: ana@mail.com} -->
-  <form (submit)="onAdicionarCliente(clienteForm)" #clienteForm="ngForm">
+  <!-- clienteForm = {nome : "Ana", fone: "12345678", email: ana@mail.com}
+  #clienteForm - variavel de referência de template
+  -->
+
+ <mat-card>
+  <!-- Projeto usando conceito de template driven form, ou seja, sem o two way data binding -->
+<form (submit)="onAdicionarCliente(clienteForm)" #clienteForm="ngForm">
+
+<!-- //v2 do método onAdicionarCliente -->
+<!-- <form (submit)="onAdicionarCliente(clienteForm.value)" #clienteForm="ngForm"> -->
 
 <mat-form-field appearance="fill">
   <mat-label>Digite o nome</mat-label>
+  <!-- Trecho com Two Data Binding -->
+  <!-- <input matInput type="text" [(ngModel)]="nome"> -->
   <input matInput
   type="text"
   ngModel name="nome"
   required
   minlength="3"
+  #nomeInput
   >
   <button
-    *ngIf="nome"
+    *ngIf="clienteForm.value.nome"
     matSuffix
     mat-icon-button
-    (click)="nome=''">
+    (click)="nomeInput.value">
     <mat-icon>close</mat-icon>
-    <mat-error>Digite um nome válido</mat-error>
-
-</button>
+  </button>
+  <mat-error>Digite um nome válido</mat-error>
 </mat-form-field>
 
 <mat-form-field appearance="fill">
   <mat-label>Digite o fone</mat-label>
+  <!-- Trecho com Two Data Binding -->
+  <!-- <input matInput type="text" [(ngModel)]="fone"> -->
   <input matInput
   type="text"
   ngModel name="fone"
   required
+  #foneInput
   >
   <button
-  *ngIf="fone"
+  *ngIf="foneInput.value"
     matSuffix
     mat-icon-button
-    (click)="fone=''">
+    (click)="foneInput.value">
     <mat-icon>close</mat-icon>
-    <mat-error>Digite um telefone válido</mat-error>
-
   </button>
+  <mat-error>Digite um telefone válido</mat-error>
 </mat-form-field>
 
 <mat-form-field appearance="fill">
   <mat-label>Digite o e-mail</mat-label>
+  <!-- Trecho com Two Data Binding -->
+  <!-- <input matInput type="text" [(ngModel)]="email"> -->
   <input
   matInput
   type="text"
   ngModel name="email"
   required
+  #emailInput
   >
   <button
-    *ngIf="email"
+    *ngIf="emailInput.value"
     matSuffix
     mat-icon-button
-    (click)="email=''">
+    (click)="emailInput.value">
   <mat-icon>close</mat-icon>
-  <mat-error>Digite um email válido</mat-error>
-
 </button>
-
+<mat-error>Digite um email válido</mat-error>
 </mat-form-field>
-<!--
-<hr>
 
-<input
-  [(ngModel)]="nome"
-  type="text"
-  placeholder="Nome">
-<hr>
-<input
-  [(ngModel)]="fone"
-  type="text" placeholder="Fone">
+<!-- Trecho da aula 1 - info estáticas do cliente -->
 
-<hr>
-
-<input
-  [(ngModel)]="email"
-  type="text" placeholder="E-mail">
-
-<hr>
--->
+<!-- Trecho com two wat data binding -->
+<!-- <button color="primary" mat-raised-button (click)="onAdicionarCliente">Inserir cliente</button> -->
 
   <button
     color="primary"
@@ -90,3 +89,22 @@
 </form>
 
 </mat-card>
+
+
+<!--
+  TRECHO AULA 1
+<hr>
+<input
+  [(ngModel)]="nome"
+  type="text"
+  placeholder="Nome">
+<hr>
+<input
+  [(ngModel)]="fone"
+  type="text" placeholder="Fone">
+<hr>
+<input
+  [(ngModel)]="email"
+  type="text" placeholder="E-mail">
+<hr>
+-->

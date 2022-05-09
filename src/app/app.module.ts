@@ -20,6 +20,7 @@ import { ClienteInserirComponent } from './clientes/cliente-inserir/cliente-inse
 import { MatRipple } from '@angular/material/core';
 import { CabecalhoComponent } from './cabecalho/cabecalho.component';
 import { ClienteListaComponent } from './clientes/cliente-lista/cliente-lista.component';
+import { ClienteService } from './clientes/cliente.service';
 
 
 
@@ -44,7 +45,7 @@ import { ClienteListaComponent } from './clientes/cliente-lista/cliente-lista.co
     MatToolbarModule,
 
   ],
-  providers: [],
+  providers: [ClienteService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

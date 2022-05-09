@@ -10,8 +10,9 @@ export class AppComponent {
 
   clientes: Cliente[] = []
   onClienteAdicionado (cliente): void{
+    // ... operador  p/ aparecer a lista de clientes atual +  o novo cliente que for inserido
     this.clientes = [...this.clientes, cliente]
-    console.log(this.clientes);
     //console.log(cliente);
+    console.log(this.clientes);
   }
 }
