@@ -28,6 +28,7 @@ export class ClienteInserirComponent{
         form.value.fone,
         form.value.email,
       )
+      form.resetForm()
       //console.log("Foi sim inserido");
     }
 }
