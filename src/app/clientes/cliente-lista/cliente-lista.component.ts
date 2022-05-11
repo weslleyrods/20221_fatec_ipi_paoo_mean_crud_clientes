@@ -1,17 +1,19 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, OnDestroy} from '@angular/core';
 import { Cliente } from '../cliente.model';
 import { ClienteService } from '../cliente.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-cliente-lista',
   templateUrl: './cliente-lista.component.html',
   styleUrls: ['./cliente-lista.component.css']
 })
-export class ClienteListaComponent implements OnInit {
+export class ClienteListaComponent implements OnInit, OnDestroy{
 
   //Usado no Trecho 2  da aula - projeto com two way data binding
   // @Input()
   clientes: Cliente[] = []
+  private clientesSubscription: Subscription
 
   constructor(private clienteService: ClienteService){
   }
@@ -19,6 +21,15 @@ export class ClienteListaComponent implements OnInit {
   //OnInit utilizado porque a doc do Angular recomenda que o construtor seja utilizado somente para injeção de dependência.O método é OnInit é chamado automaticamente
   ngOnInit(): void{
     this.clientes = this.clienteService.getClientes()
+    this.clientesSubscription = this.clienteService.
+    getListaDeClienteAtualizadaObservable()
+    .subscribe((clientes: Cliente[])=>{
+      this.clientes = clientes
+    })
+  }
+
+  ngOnDestroy(): void{
+    this.clientesSubscription.unsubscribe()
   }
 
   //No TypeScript, implicitamente ele já cria a estratégia de ter uma variavel atribuida ao construtor para ser usada em outros métodos. Para isso, o modificador de acesso "private" foi aplicado no construtor
