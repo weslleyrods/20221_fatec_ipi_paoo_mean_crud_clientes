@@ -29,7 +29,7 @@
     *ngIf="clienteForm.value.nome"
     matSuffix
     mat-icon-button
-    (click)="nomeInput.value">
+    (click)="nomeInput.value=''">
     <mat-icon>close</mat-icon>
   </button>
   <mat-error>Digite um nome válido</mat-error>
@@ -49,7 +49,7 @@
   *ngIf="foneInput.value"
     matSuffix
     mat-icon-button
-    (click)="foneInput.value">
+    (click)="foneInput.value=''">
     <mat-icon>close</mat-icon>
   </button>
   <mat-error>Digite um telefone válido</mat-error>
@@ -70,7 +70,7 @@
     *ngIf="emailInput.value"
     matSuffix
     mat-icon-button
-    (click)="emailInput.value">
+    (click)="emailInput.value=''">
   <mat-icon>close</mat-icon>
 </button>
 <mat-error>Digite um email válido</mat-error>

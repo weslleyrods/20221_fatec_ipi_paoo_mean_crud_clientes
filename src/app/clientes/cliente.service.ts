@@ -1,5 +1,5 @@
 import {Cliente} from "./cliente.model";
-import {Subject} from 'rxjs'
+import {Subject} from 'rxjs';
 
 //single source of truth
 export class ClienteService{
