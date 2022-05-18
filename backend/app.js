@@ -1,6 +1,8 @@
 const express = require ('express')
 const cors  = require('cors')
+const Cliente = require('./models/cliente')
 const app = express()
+let id = 3;
 
 //use serve para usa ruum middleware
 
@@ -49,7 +51,15 @@ app.get('/api/clientes', (req, res) =>{
 // })
 //localhost:3000/api/clientes
 app.post('/api/clientes', (req, res)=>{
-  console.log(req.body)
+  const cliente = new Cliente({
+    ...req.body,
+    //id: id++
+  })
+  console.log(cliente);
+  // clientes.push({
+  //   ...req.body,
+  //   id: id++
+  // })
   //res.end() encerra a resposta da requisição
   res.status(201).json({mensagem: 'Cliente inserido'})
 })
