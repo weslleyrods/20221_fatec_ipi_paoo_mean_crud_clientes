@@ -1,11 +1,17 @@
 const express = require ('express')
+const cors  = require('cors')
 const app = express()
 
+//use serve para usa ruum middleware
 
 // app.use((req, res, next)=>{
 //   console.log("Chegou uma requisição")
 //   next()
 // })
+
+app.use(cors())
+//req.body pode ser tratado como um objeto JSON
+app.use(express.json())
 
 const clientes = [
   {
@@ -21,11 +27,16 @@ const clientes = [
     fone: '789456',
     email: 'antonio@mail.com'
   }
-
 ]
 
+
+// app.use((req,res,next)=>{
+//   console.log("oi");
+//   res.json()
+// })
+
 //localhost:3000/api/clientes
-app.use('/api/clientes', (req, res) =>{
+app.get('/api/clientes', (req, res) =>{
   res.status(200).json({
     mensagem: "Tudo OK",
     clientes: clientes
@@ -36,5 +47,11 @@ app.use('/api/clientes', (req, res) =>{
 // app.use('/api/clientes', (req, res) =>{
 //   res.send('Hello from the back end (Express)')
 // })
+//localhost:3000/api/clientes
+app.post('/api/clientes', (req, res)=>{
+  console.log(req.body)
+  //res.end() encerra a resposta da requisição
+  res.status(201).json({mensagem: 'Cliente inserido'})
+})
 
 module.exports = app

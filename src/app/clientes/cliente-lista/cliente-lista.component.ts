@@ -20,12 +20,12 @@ export class ClienteListaComponent implements OnInit, OnDestroy{
 
   //OnInit utilizado porque a doc do Angular recomenda que o construtor seja utilizado somente para injeção de dependência.O método é OnInit é chamado automaticamente
   ngOnInit(): void{
-    this.clientes = this.clienteService.getClientes()
     this.clientesSubscription = this.clienteService.
     getListaDeClienteAtualizadaObservable()
     .subscribe((clientes: Cliente[])=>{
       this.clientes = clientes
     })
+    this.clienteService.getClientes()
   }
 
   ngOnDestroy(): void{

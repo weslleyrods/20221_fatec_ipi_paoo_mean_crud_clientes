@@ -13,4 +13,5 @@ const server = http.createServer(app)
 //   res.end("Hello from the backend")
 // })
 
-server.listen(process.env.PORT || 3000)
+//server.listen(process.env.PORT || 3000)
+server.listen(port)
