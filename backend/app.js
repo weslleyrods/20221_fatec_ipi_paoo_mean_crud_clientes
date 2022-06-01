@@ -34,21 +34,21 @@ app.use(cors())
 //req.body pode ser tratado como um objeto JSON
 app.use(express.json())
 
-const clientes = [
-  {
-      id: '1',
-      nome: 'José,',
-      fone: '123456',
-      email: 'jose@mail.com'
+// const clientes = [
+//   {
+//       id: '1',
+//       nome: 'José,',
+//       fone: '123456',
+//       email: 'jose@mail.com'
 
-  },
-  {
-    id: '2',
-    nome: 'Antonio,',
-    fone: '789456',
-    email: 'antonio@mail.com'
-  }
-]
+//   },
+//   {
+//     id: '2',
+//     nome: 'Antonio,',
+//     fone: '789456',
+//     email: 'antonio@mail.com'
+//   }
+// ]
 
 // app.use((req,res,next)=>{
 //   console.log("oi");
@@ -88,5 +88,7 @@ app.post('/api/clientes', (req, res)=>{
   cliente.save()
   res.status(201).json({mensagem: 'Cliente inserido'})
 })
+
+app.delete
 
 module.exports = app
