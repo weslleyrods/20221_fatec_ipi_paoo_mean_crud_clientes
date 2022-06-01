@@ -89,6 +89,14 @@ app.post('/api/clientes', (req, res)=>{
   res.status(201).json({mensagem: 'Cliente inserido'})
 })
 
-app.delete
+//localhost:3000/api/clientes/123456
+//:id - variavel
+app.delete('/api/clientes/:id', (req, res)=>{
+  Cliente.deleteOne({_id: req.params.id})
+  .then((resultado)=>{
+    console.log(resultado);
+    res.status(200).end()
+  })
+})
 
 module.exports = app

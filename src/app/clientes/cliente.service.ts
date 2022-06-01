@@ -31,7 +31,7 @@ export class ClienteService{
       })
     }))
     .subscribe((clientes)=>{
-      this.clientes = clientes.clientes
+      this.clientes = clientes
       this.listaClientesAtualizada.next([...this.clientes])
     })
 }
@@ -61,5 +61,13 @@ export class ClienteService{
 
   getListaDeClienteAtualizadaObservable(){
     return this.listaClientesAtualizada.asObservable()
+  }
+
+  removerCliente(id: string): void{
+    this.httpClient.delete(`http://localhost:3000/api/clientes/${id}`)
+    .subscribe(()=>{
+      console.log(`Cliente de id:${id} removido`);
+      
+    })
   }
 }
