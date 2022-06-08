@@ -8,7 +8,9 @@ const routes: Routes = [
   //localhost:4200/
   {path: '', component: ClienteListaComponent},
   //localhost:4200/criar
-  {path: 'criar', component: ClienteInserirComponent }
+  {path: 'criar', component: ClienteInserirComponent },
+  //localhost:4200/editar/:id
+  {path: 'editar/:idCliente', component: ClienteInserirComponent}
 ]
 
 @NgModule({

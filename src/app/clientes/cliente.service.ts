@@ -60,8 +60,24 @@ export class ClienteService{
     });
   }
 
+  atualizarCliente(id: string, nome: string, fone:string, email:string){
+    const cliente: Cliente = {nome, fone, email}
+    this.httpClient.put(`http://localhost:3000/api/clientes/${id}`, cliente)
+    .subscribe(res => {
+      const copia = [...this.clientes]
+      const indice = copia.findIndex(cli => cli.id ===id)
+      copia[indice] = {...cliente, id}
+      this.clientes = copia
+      this.listaClientesAtualizada.next([...this.clientes])
+    })
+  }
+
   getListaDeClienteAtualizadaObservable(){
     return this.listaClientesAtualizada.asObservable()
+  }
+
+  getCliente(id: string): Cliente{
+    return {...this.clientes.find(cli => cli.id === id)}
   }
 
   removerCliente(id: string): void{

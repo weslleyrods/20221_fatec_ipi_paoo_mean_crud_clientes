@@ -1,6 +1,7 @@
 //import { Component, EventEmitter, Output } from "@angular/core";
-import { Component} from "@angular/core";
+import { Component, OnInit} from "@angular/core";
 import { NgForm } from "@angular/forms";
+import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Cliente } from "../cliente.model";
 import { ClienteService } from  '../cliente.service';
 
@@ -12,22 +13,53 @@ import { ClienteService } from  '../cliente.service';
 })
 
 //TRECHO 3 da aula - projeto com injeção de dependencia
-export class ClienteInserirComponent{
+export class ClienteInserirComponent implements OnInit{
 
-  constructor(private clienteService: ClienteService){
+  private modo: String = "criar"
+  private idCliente: string
+  public cliente: Cliente
+  constructor(
+    private clienteService: ClienteService,
+    private route: ActivatedRoute){
 
   }
 
-  onAdicionarCliente(form: NgForm){
+  ngOnInit(): void{
+    this.route.paramMap.subscribe((paramMap: ParamMap)=>{
+      //console.log(paramMap);
+      if(paramMap.has('idCliente')){
+        this.modo = "editar"
+        this.idCliente = paramMap.get("idCliente")
+        this.cliente = this.clienteService.getCliente(this.idCliente)
+      }
+      else{
+        this.modo = "criar"
+        this.idCliente=null
+      }
+    })
+  }
+
+
+  onSalvarCliente(form: NgForm){
       if(form.invalid){
         return;
       }
-      //console.log("Form está válido");
-      this.clienteService.adicionarCliente(
-        form.value.nome,
-        form.value.fone,
-        form.value.email,
-      )
+      if(this.modo === 'criar'){
+        this.clienteService.adicionarCliente(
+          form.value.nome,
+          form.value.fone,
+          form.value.email,
+        )
+        //console.log("Form está válido");
+      }
+      else{
+        this.clienteService.atualizarCliente(
+          this.idCliente,
+          form.value.nome,
+          form.value.fone,
+          form.value.email
+        )
+      }
       form.resetForm()
       //console.log("Foi sim inserido");
     }

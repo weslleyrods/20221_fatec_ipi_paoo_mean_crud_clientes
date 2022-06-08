@@ -4,6 +4,7 @@ const cors  = require('cors')
 const Cliente = require('./models/cliente')
 const app = express()
 const mongoose = require('mongoose')
+const { reduceEachLeadingCommentRange } = require('typescript')
 let id = 3;
 
 const {
@@ -71,6 +72,23 @@ app.get('/api/clientes', (req, res) =>{
 //   res.send('Hello from the back end (Express)')
 // })
 
+app.put('/api/clientes/:id', (req, res)=>{
+  const cliente = new Cliente({
+    ...req.body,
+    _id: req.params.id
+  })
+  Cliente.updateOne(
+    {_id: req.params.id},
+    cliente
+  )
+  .then(mongoResponse=>{
+    console.log(mongoResponse)
+    res.status(200).json({
+      mensagem: 'Atualização realizada com sucesso'
+    })
+  })
+})
+
 //localhost:3000/api/clientes
 app.post('/api/clientes', (req, res)=>{
   //objeto cliente com os dados vindo da requisição
@@ -89,9 +107,9 @@ app.post('/api/clientes', (req, res)=>{
     res.status(201).json({
       mensagem: 'Cliente inserido',
       id: clienteInserido._id
-    })
   })
-  res.status(201).json({mensagem: 'Cliente inserido'})
+  })
+  //res.status(201).json({mensagem: 'Cliente inserido'})
 })
 
 //localhost:3000/api/clientes/123456

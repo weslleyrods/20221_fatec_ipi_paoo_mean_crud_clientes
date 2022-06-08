@@ -7,9 +7,9 @@
   #clienteForm - variavel de referência de template
   -->
 
- <mat-card>
+<mat-card>
   <!-- Projeto usando conceito de template driven form, ou seja, sem o two way data binding -->
-<form (submit)="onAdicionarCliente(clienteForm)" #clienteForm="ngForm">
+<form (submit)="onSalvarCliente(clienteForm)" #clienteForm="ngForm">
 
 <!-- //v2 do método onAdicionarCliente -->
 <!-- <form (submit)="onAdicionarCliente(clienteForm.value)" #clienteForm="ngForm"> -->
@@ -20,7 +20,8 @@
   <!-- <input matInput type="text" [(ngModel)]="nome"> -->
   <input matInput
   type="text"
-  ngModel name="nome"
+  [ngModel]="cliente?.nome"
+  name="nome"
   required
   minlength="3"
   #nomeInput
@@ -41,7 +42,8 @@
   <!-- <input matInput type="text" [(ngModel)]="fone"> -->
   <input matInput
   type="text"
-  ngModel name="fone"
+  [ngModel] = "cliente?.fone"
+  name="fone"
   required
   #foneInput
   >
@@ -62,7 +64,8 @@
   <input
   matInput
   type="text"
-  ngModel name="email"
+  [ngModel]="cliente?.email"
+  name="email"
   required
   #emailInput
   >
@@ -82,9 +85,9 @@
 <!-- <button color="primary" mat-raised-button (click)="onAdicionarCliente">Inserir cliente</button> -->
 
   <button
-    color="primary"
+    color="accent"
     mat-raised-button>
-    Inserir cliente
+    Salvar cliente
   </button>
 </form>
 
