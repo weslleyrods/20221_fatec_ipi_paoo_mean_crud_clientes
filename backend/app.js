@@ -85,7 +85,12 @@ app.post('/api/clientes', (req, res)=>{
   //   id: id++
   // })
   //res.end() encerra a resposta da requisição
-  cliente.save()
+  cliente.save().then((clienteInserido)=>{
+    res.status(201).json({
+      mensagem: 'Cliente inserido',
+      id: clienteInserido._id
+    })
+  })
   res.status(201).json({mensagem: 'Cliente inserido'})
 })
 

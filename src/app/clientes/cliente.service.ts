@@ -48,12 +48,13 @@ export class ClienteService{
     const cliente: Cliente={
       nome, fone, email
     }
-    this.httpClient.post<{mensagem: string}>(
+    this.httpClient.post<{mensagem: string, id: string}>(
       'http://localhost:3000/api/clientes',
       cliente
     )
     .subscribe((dados)=>{
       console.log(dados.mensagem)
+      cliente.id = dados.id
       this.clientes.push(cliente)
       this.listaClientesAtualizada.next([...this.clientes])
     });
@@ -67,7 +68,7 @@ export class ClienteService{
     this.httpClient.delete(`http://localhost:3000/api/clientes/${id}`)
     .subscribe(()=>{
       console.log(`Cliente de id:${id} removido`);
-      
+
     })
   }
 }

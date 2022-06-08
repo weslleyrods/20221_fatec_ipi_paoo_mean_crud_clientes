@@ -20,6 +20,7 @@ import { MatRipple } from '@angular/material/core';
 import { CabecalhoComponent } from './cabecalho/cabecalho.component';
 import { ClienteListaComponent } from './clientes/cliente-lista/cliente-lista.component';
 import { ClienteService } from './clientes/cliente.service';
+import { AppRoutingModule } from './app.routing.module';
 
 
 
@@ -32,6 +33,7 @@ import { ClienteService } from './clientes/cliente.service';
     ClienteListaComponent
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
