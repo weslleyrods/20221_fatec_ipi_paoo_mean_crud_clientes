@@ -1,9 +1,10 @@
 require('dotenv').config()
 const express = require ('express')
 const cors  = require('cors')
-const Cliente = require('./models/cliente')
 const app = express()
 const mongoose = require('mongoose')
+const clienteRoutes = require('./routes/cliente')
+
 const { reduceEachLeadingCommentRange } = require('typescript')
 let id = 3;
 
@@ -35,105 +36,6 @@ app.use(cors())
 //req.body pode ser tratado como um objeto JSON
 app.use(express.json())
 
-// const clientes = [
-//   {
-//       id: '1',
-//       nome: 'José,',
-//       fone: '123456',
-//       email: 'jose@mail.com'
-
-//   },
-//   {
-//     id: '2',
-//     nome: 'Antonio,',
-//     fone: '789456',
-//     email: 'antonio@mail.com'
-//   }
-// ]
-
-// app.use((req,res,next)=>{
-//   console.log("oi");
-//   res.json()
-// })
-
-//localhost:3000/api/clientes
-app.get('/api/clientes', (req, res) =>{
-  Cliente.find().then(documents=>{
-    res.status(200).json({
-      mensagem: "Tudo OK",
-      //clientes: clientes
-      clientes: documents
-    })
-  })
-});
-
-app.get('/api/clientes/:id', (req, res)=>{
-  Cliente.findById(req.params.id)
-  .then(cli=>{
-    if(cli){
-      res.status(200).json(cli)
-    }
-    else{
-      res.status(404).json({
-        mensagem: "Cliente não encontrado!"
-      })
-    }
-  })
-})
-
-//v1 da funcao
-// app.use('/api/clientes', (req, res) =>{
-//   res.send('Hello from the back end (Express)')
-// })
-
-app.put('/api/clientes/:id', (req, res)=>{
-  const cliente = new Cliente({
-    ...req.body,
-    _id: req.params.id
-  })
-  Cliente.updateOne(
-    {_id: req.params.id},
-    cliente
-  )
-  .then(mongoResponse=>{
-    console.log(mongoResponse)
-    res.status(200).json({
-      mensagem: 'Atualização realizada com sucesso'
-    })
-  })
-})
-
-//localhost:3000/api/clientes
-app.post('/api/clientes', (req, res)=>{
-  //objeto cliente com os dados vindo da requisição
-  //exibir com um log e armazenar no mongo db
-  const cliente = new Cliente({
-    ...req.body,
-    //id: id++
-  })
-  console.log(cliente);
-  // clientes.push({
-  //   ...req.body,
-  //   id: id++
-  // })
-  //res.end() encerra a resposta da requisição
-  cliente.save().then((clienteInserido)=>{
-    res.status(201).json({
-      mensagem: 'Cliente inserido',
-      id: clienteInserido._id
-  })
-  })
-  //res.status(201).json({mensagem: 'Cliente inserido'})
-})
-
-//localhost:3000/api/clientes/123456
-//:id - variavel
-app.delete('/api/clientes/:id', (req, res)=>{
-  Cliente.deleteOne({_id: req.params.id})
-  .then((resultado)=>{
-    console.log(resultado);
-    res.status(200).end()
-  })
-})
+app.use('/api/clientes', clienteRoutes)
 
 module.exports = app
