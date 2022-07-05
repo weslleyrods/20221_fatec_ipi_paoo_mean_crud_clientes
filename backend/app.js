@@ -65,6 +65,20 @@ app.get('/api/clientes', (req, res) =>{
       clientes: documents
     })
   })
+});
+
+app.get('/api/clientes/:id', (req, res)=>{
+  Cliente.findById(req.params.id)
+  .then(cli=>{
+    if(cli){
+      res.status(200).json(cli)
+    }
+    else{
+      res.status(404).json({
+        mensagem: "Cliente não encontrado!"
+      })
+    }
+  })
 })
 
 //v1 da funcao

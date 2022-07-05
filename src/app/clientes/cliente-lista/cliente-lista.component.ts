@@ -3,6 +3,7 @@ import { Cliente } from '../cliente.model';
 import { ClienteService } from '../cliente.service';
 import {Subscription} from 'rxjs';
 
+
 @Component({
   selector: 'app-cliente-lista',
   templateUrl: './cliente-lista.component.html',
@@ -14,7 +15,7 @@ export class ClienteListaComponent implements OnInit, OnDestroy{
   // @Input()
   clientes: Cliente[] = []
   private clientesSubscription: Subscription
-
+  
   constructor(private clienteService: ClienteService){
   }
 
@@ -41,7 +42,7 @@ export class ClienteListaComponent implements OnInit, OnDestroy{
 
   onDelete(id: string):void{
     this.clienteService.removerCliente(id);
-    
+
   }
 
 }
