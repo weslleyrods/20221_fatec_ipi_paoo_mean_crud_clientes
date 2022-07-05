@@ -1,7 +1,8 @@
 
 <!--mat-accordion>mat-expansion-panel>(mat-expansion-panel-header{lista de clientes}+(p{Conteúdo}*2)-->
+<mat-spinner *ngIf="estaCarregando"></mat-spinner>
 
-<mat-accordion *ngIf="clientes.length>0">
+<mat-accordion *ngIf="clientes.length>0 && !estaCarregando">
 
   <mat-expansion-panel *ngFor="let cli of clientes">
     <mat-expansion-panel-header>
@@ -30,4 +31,4 @@
   </mat-expansion-panel> -->
 
 </mat-accordion>
-<p class="mat-body-1" style="text-align: center;" *ngIf="clientes.length<=0">Nenhum cliente cadastrado</p>
+<p class="mat-body-1" style="text-align: center;" *ngIf="clientes.length<=0 && !estaCarregando">Nenhum cliente cadastrado</p>

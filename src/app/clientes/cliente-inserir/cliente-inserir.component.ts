@@ -18,6 +18,7 @@ export class ClienteInserirComponent implements OnInit{
   private modo: String = "criar"
   private idCliente: string
   public cliente: Cliente
+  public estaCarregando: boolean = false
   constructor(
     private clienteService: ClienteService,
     private route: ActivatedRoute){
@@ -30,7 +31,9 @@ export class ClienteInserirComponent implements OnInit{
       if(paramMap.has('idCliente')){
         this.modo = "editar"
         this.idCliente = paramMap.get("idCliente")
+        this.estaCarregando = true
         this.clienteService.getCliente(this.idCliente).subscribe(dadosCli=>{
+          this.estaCarregando = false
           this.cliente = {
             id: dadosCli._id,
             nome: dadosCli.nome,
@@ -51,6 +54,7 @@ export class ClienteInserirComponent implements OnInit{
       if(form.invalid){
         return;
       }
+      this.estaCarregando = true
       if(this.modo === 'criar'){
         this.clienteService.adicionarCliente(
           form.value.nome,

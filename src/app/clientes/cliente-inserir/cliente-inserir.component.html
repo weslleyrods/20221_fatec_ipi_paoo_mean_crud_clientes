@@ -8,8 +8,9 @@
   -->
 
 <mat-card>
+  <mat-spinner *ngIf="estaCarregando"></mat-spinner>
   <!-- Projeto usando conceito de template driven form, ou seja, sem o two way data binding -->
-<form (submit)="onSalvarCliente(clienteForm)" #clienteForm="ngForm">
+<form (submit)="onSalvarCliente(clienteForm)" #clienteForm="ngForm" *ngIf="!estaCarregando">
 
 <!-- //v2 do método onAdicionarCliente -->
 <!-- <form (submit)="onAdicionarCliente(clienteForm.value)" #clienteForm="ngForm"> -->
@@ -81,7 +82,7 @@
 
 <!-- Trecho da aula 1 - info estáticas do cliente -->
 
-<!-- Trecho com two wat data binding -->
+<!-- Trecho com two way data binding -->
 <!-- <button color="primary" mat-raised-button (click)="onAdicionarCliente">Inserir cliente</button> -->
 
   <button
