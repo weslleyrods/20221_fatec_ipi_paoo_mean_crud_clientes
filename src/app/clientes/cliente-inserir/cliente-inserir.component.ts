@@ -1,6 +1,6 @@
 //import { Component, EventEmitter, Output } from "@angular/core";
 import { Component, OnInit} from "@angular/core";
-import { NgForm } from "@angular/forms";
+import { FormControl, FormGroup, Validators, NgForm } from "@angular/forms";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Cliente } from "../cliente.model";
 import { ClienteService } from  '../cliente.service';
@@ -19,6 +19,7 @@ export class ClienteInserirComponent implements OnInit{
   private idCliente: string
   public cliente: Cliente
   public estaCarregando: boolean = false
+  form: FormGroup;
   constructor(
     private clienteService: ClienteService,
     private route: ActivatedRoute){
@@ -26,6 +27,17 @@ export class ClienteInserirComponent implements OnInit{
   }
 
   ngOnInit(): void{
+    this.form = new FormGroup({
+      nome: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)]
+      }),
+      fone: new FormControl(null, {
+        validators:[Validators.required]
+      }),
+      email: new FormControl(null, {
+        validators: [Validators.email]
+      })
+    })
     this.route.paramMap.subscribe((paramMap: ParamMap)=>{
       //console.log(paramMap);
       if(paramMap.has('idCliente')){
@@ -40,6 +52,11 @@ export class ClienteInserirComponent implements OnInit{
             fone: dadosCli.fone,
             email: dadosCli.email
           }
+          this.form.setValue({
+            nome: this.cliente.nome,
+            fone: this.cliente.fone,
+            email: this.cliente.email
+          })
         })
       }
       else{
@@ -50,28 +67,28 @@ export class ClienteInserirComponent implements OnInit{
   }
 
 
-  onSalvarCliente(form: NgForm){
-      if(form.invalid){
+  onSalvarCliente(){
+      if(this.form.invalid){
         return;
       }
       this.estaCarregando = true
       if(this.modo === 'criar'){
         this.clienteService.adicionarCliente(
-          form.value.nome,
-          form.value.fone,
-          form.value.email,
+          this.form.value.nome,
+          this.form.value.fone,
+          this.form.value.email,
         )
         //console.log("Form está válido");
       }
       else{
         this.clienteService.atualizarCliente(
           this.idCliente,
-          form.value.nome,
-          form.value.fone,
-          form.value.email
+          this.form.value.nome,
+          this.form.value.fone,
+          this.form.value.email
         )
       }
-      form.resetForm()
+      this.form.reset()
       //console.log("Foi sim inserido");
     }
 }

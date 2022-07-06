@@ -10,7 +10,7 @@
 <mat-card>
   <mat-spinner *ngIf="estaCarregando"></mat-spinner>
   <!-- Projeto usando conceito de template driven form, ou seja, sem o two way data binding -->
-<form (submit)="onSalvarCliente(clienteForm)" #clienteForm="ngForm" *ngIf="!estaCarregando">
+<form [formGroup]="form" (submit)="onSalvarCliente()" *ngIf="!estaCarregando">
 
 <!-- //v2 do método onAdicionarCliente -->
 <!-- <form (submit)="onAdicionarCliente(clienteForm.value)" #clienteForm="ngForm"> -->
@@ -21,14 +21,11 @@
   <!-- <input matInput type="text" [(ngModel)]="nome"> -->
   <input matInput
   type="text"
-  [ngModel]="cliente?.nome"
   name="nome"
-  required
-  minlength="3"
+  formControlName="nome"
   #nomeInput
   >
   <button
-    *ngIf="clienteForm.value.nome"
     matSuffix
     mat-icon-button
     (click)="nomeInput.value=''">
@@ -48,9 +45,8 @@
   <!-- <input matInput type="text" [(ngModel)]="fone"> -->
   <input matInput
   type="text"
-  [ngModel] = "cliente?.fone"
   name="fone"
-  required
+  formControlName="fone"
   #foneInput
   >
   <button
@@ -70,9 +66,8 @@
   <input
   matInput
   type="text"
-  [ngModel]="cliente?.email"
   name="email"
-  required
+  formControlName="email"
   #emailInput
   >
   <button
